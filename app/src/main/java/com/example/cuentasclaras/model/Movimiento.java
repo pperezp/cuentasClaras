@@ -1,7 +1,5 @@
 package com.example.cuentasclaras.model;
 
-import java.util.Date;
-
 public class Movimiento {
     private int id;
     private int monto;

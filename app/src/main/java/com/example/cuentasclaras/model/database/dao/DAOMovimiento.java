@@ -3,7 +3,6 @@ package com.example.cuentasclaras.model.database.dao;
 import com.example.cuentasclaras.model.Movimiento;
 import com.example.cuentasclaras.model.database.BD;
 
-import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DAOMovimiento implements DAO<Movimiento>{
 

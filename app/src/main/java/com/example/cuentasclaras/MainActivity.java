@@ -3,6 +3,7 @@ package com.example.cuentasclaras;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,15 +32,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Spinner cboCuentaOrigen;
-    private Spinner cboCuentaDestino;
-    private Switch switchAutoSelect;
-    private Button btnRegistrarMovimiento;
-    private EditText txtMonto;
-    private EditText txtDetalle;
 
 
-    private List<Cuenta> cuentas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +47,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                FragmentManager fm = getSupportFragmentManager();
+
+                CrearMovimientoFragment cmf = new CrearMovimientoFragment();
+                fm.beginTransaction().replace(R.id.contenido, cmf).commit();
             }
         });
 
@@ -66,101 +63,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        init();
+        //init();
     }
 
-    private void init() {
-        cargarComponentes();
-        loadListeners();
-        crearCuentas();
-        cargarSpinnerCuentas();
-    }
 
-    private void loadListeners() {
-        cboCuentaOrigen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(switchAutoSelect.isChecked()){
-                    cboCuentaDestino.setSelection(i == 0 ? 1 : 0);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) { }
-        });
-
-        switchAutoSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isCuentaAutoSelectSelected) {
-                cboCuentaDestino.setEnabled(!isCuentaAutoSelectSelected);
-
-                if(isCuentaAutoSelectSelected){
-                    int cuentaOrigenIndex = cboCuentaOrigen.getSelectedItemPosition();
-                    cboCuentaDestino.setSelection(cuentaOrigenIndex == 0 ? 1 : 0);
-                }
-            }
-        });
-
-        btnRegistrarMovimiento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DAOMovimiento daoMovimiento = new DAOMovimiento(getApplicationContext());
-
-                Movimiento movimiento = new Movimiento();
-
-                movimiento.setMonto(Integer.parseInt(txtMonto.getText().toString()));
-                movimiento.setCuentaOrigen(cboCuentaOrigen.getSelectedItem().toString());
-                movimiento.setCuentaDestino(cboCuentaDestino.getSelectedItem().toString());
-                movimiento.setDetalle(txtDetalle.getText().toString());
-
-                daoMovimiento.create(movimiento);
-
-                for (Movimiento m : daoMovimiento.read()){
-                    Log.i("movimiento", m.toString());
-                }
-            }
-        });
-    }
-
-    private void cargarComponentes() {
-        cboCuentaOrigen = findViewById(R.id.cboCuentaOrigen);
-        cboCuentaDestino =  findViewById(R.id.cboCuentaDestino);
-        switchAutoSelect = findViewById(R.id.switchAutoSelect);
-        btnRegistrarMovimiento = findViewById(R.id.btnRegistrar);
-        txtMonto = findViewById(R.id.txtMonto);
-        txtDetalle = findViewById(R.id.txtDetalle);
-    }
-
-    private void cargarSpinnerCuentas() {
-        ArrayAdapter<Cuenta> cuentasAdapter = new ArrayAdapter<>(
-            getApplicationContext(),
-            android.R.layout.simple_spinner_dropdown_item   ,
-            cuentas
-        );
-
-        cboCuentaOrigen.setAdapter(cuentasAdapter);
-        cboCuentaDestino.setAdapter(cuentasAdapter);
-
-        cboCuentaDestino.setEnabled(!switchAutoSelect.isChecked());
-
-        cboCuentaDestino.setSelection(1);
-    }
-
-    private void crearCuentas() {
-        cuentas = new ArrayList<>();
-
-        Cuenta rut = new Cuenta();
-        Cuenta corriente = new Cuenta();
-
-        rut.setId(1);
-        rut.setNombre("RUT");
-
-        corriente.setId(2);
-        corriente.setNombre("Corriente");
-
-        cuentas.add(rut);
-        cuentas.add(corriente);
-    }
 
     @Override
     public void onBackPressed() {
@@ -197,25 +103,22 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        FragmentManager fm = getSupportFragmentManager();
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_crear) {
+            CrearMovimientoFragment cmf = new CrearMovimientoFragment();
+            fm.beginTransaction().replace(R.id.contenido, cmf).commit();
+        } else if (id == R.id.nav_listar) {
+            ListarMovimientosFragment lmf = new ListarMovimientosFragment();
+            fm.beginTransaction().replace(R.id.contenido, lmf).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }
