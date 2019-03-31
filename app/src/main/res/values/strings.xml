@@ -9,4 +9,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="creacionMovimientoOK">Se ha creado un movimiento</string>
+
+    <!-- Formulario crear movimiento -->
+    <string name="priceHint">$</string>
+    <string name="btnRegistrarText">Registrar Movimiento</string>
+    <string name="lblCuentaOrigen">Cuenta Origen:</string>
+    <string name="lblCuentaDestino">Cuenta Destino:</string>
+    <string name="lblMonto">Monto:</string>
+    <string name="lblDetalle">Detalle:</string>
+    <string name="lblAutoSelect">Cuenta Auto Select</string>
 </resources>

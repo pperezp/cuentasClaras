@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.cuentasclaras.model.Cuenta;
 import com.example.cuentasclaras.model.Movimiento;
@@ -97,9 +98,14 @@ public class CrearMovimientoFragment extends Fragment {
 
                 daoMovimiento.create(movimiento);
 
-                for (Movimiento m : daoMovimiento.read()){
-                    Log.i("movimiento", m.toString());
-                }
+                /*Limpiar formulario*/
+                txtMonto.setText("");
+                cboCuentaOrigen.setSelection(0);
+                cboCuentaDestino.setSelection(1);
+                txtDetalle.setText("");
+                /*Limpiar formulario*/
+
+                Toast.makeText(context, R.string.creacionMovimientoOK, Toast.LENGTH_SHORT).show();
             }
         });
     }
