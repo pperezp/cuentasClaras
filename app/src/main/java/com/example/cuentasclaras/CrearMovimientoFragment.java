@@ -106,6 +106,10 @@ public class CrearMovimientoFragment extends Fragment {
                 /*Limpiar formulario*/
 
                 Toast.makeText(context, R.string.creacionMovimientoOK, Toast.LENGTH_SHORT).show();
+
+                for (Movimiento m : daoMovimiento.read()){
+                    Log.i("movimiento", m.toString());
+                }
             }
         });
     }
