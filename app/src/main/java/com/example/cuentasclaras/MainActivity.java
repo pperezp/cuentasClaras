@@ -1,9 +1,11 @@
 package com.example.cuentasclaras;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.cuentasclaras.model.Cuenta;
 import com.example.cuentasclaras.model.Movimiento;
@@ -114,6 +117,22 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_listar) {
             ListarMovimientosFragment lmf = new ListarMovimientosFragment();
             fm.beginTransaction().replace(R.id.contenido, lmf).commit();
+        } else if(id == R.id.nav_delete_movimientos){
+            new AlertDialog.Builder(this)
+                .setMessage(R.string.seguroDelete)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        new DAOMovimiento(MainActivity.this).deleteAll();
+
+                        Toast.makeText(
+                            MainActivity.this,
+                            R.string.mensajeEliminaTodos,
+                            Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

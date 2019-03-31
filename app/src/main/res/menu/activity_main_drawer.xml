@@ -17,5 +17,14 @@
         </menu>
     </item>
 
+    <item android:title="Developer">
+        <menu>
+            <item
+                android:id="@+id/nav_delete_movimientos"
+                android:icon="@drawable/ic_trash"
+                android:title="Borrar movimientos" />
+        </menu>
+    </item>
+
 
 </menu>

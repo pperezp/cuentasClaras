@@ -38,7 +38,7 @@ public class DAOMovimiento implements DAO<Movimiento>{
                 "'"+movimiento.getCuentaOrigen()+"'," +
                 "'"+movimiento.getCuentaDestino()+"'," +
                 "'"+movimiento.getDetalle()+"'," +
-                "date('now'));";
+                "datetime('now', 'localtime'));";
 
         Log.v("INSERT movimiento", insert);
 
@@ -53,7 +53,7 @@ public class DAOMovimiento implements DAO<Movimiento>{
         conexion = new BD(contexto, RUTA_BD, null, 1);
         db = conexion.getWritableDatabase();
 
-        String select = "SELECT * FROM movimiento";
+        String select = "SELECT * FROM movimiento ORDER BY fecha DESC";
 
         cursor = db.rawQuery(select, null);
 
@@ -91,5 +91,15 @@ public class DAOMovimiento implements DAO<Movimiento>{
     @Override
     public Movimiento readByID(int id) {
         return null;
+    }
+
+    public void deleteAll(){
+        conexion = new BD(contexto, RUTA_BD, null, 1);
+        db = conexion.getWritableDatabase();
+
+        String delete = "DELETE FROM movimiento";
+
+        db.execSQL(delete);
+        db.close();
     }
 }

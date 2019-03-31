@@ -1,0 +1,123 @@
+0.- En el fragment listar, pegar esto dentro del frameLayout (Arrastrar desde GUI)
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reciclerMovimientos"
+            />
+    </RelativeLayout>
+
+1.- En layout, crear un nuevo XML --> Layout XML --> item_movimiento.xml y diseñar
+2.- Arrastrar un cardview y colocarle estas propiedades
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+
+3.- Dentro del cardview, arrastrar un linealayout y colocarle estas propiedades
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" --> este no es necesario quizas
+        android:padding="15dp"
+
+4.- Despues crear una clase que herede de RecyclerView.ViewHolder. En este ejemplo es
+"MovimientoViewHolder". Esta clase debe tener los mismos elementos gráficos del item xml
+
+public class MovimientoViewHolder extends RecyclerView.ViewHolder {
+    private TextView lblFecha;
+    private TextView lblOrigen;
+    private TextView lblDestino;
+    private TextView lblDetalle;
+    private TextView lblMonto;
+
+    public MovimientoViewHolder(@NonNull View itemView) {
+        super(itemView);
+
+        lblFecha = itemView.findViewById(R.id.lblFecha);
+        lblOrigen = itemView.findViewById(R.id.lblOrigen);
+        lblDestino = itemView.findViewById(R.id.lblDestino);
+        lblDetalle = itemView.findViewById(R.id.lblDetalle);
+        lblMonto = itemView.findViewById(R.id.lblMonto);
+    }
+
+    public TextView getLblFecha() {
+        return lblFecha;
+    }
+
+    public TextView getLblOrigen() {
+        return lblOrigen;
+    }
+
+    public TextView getLblDestino() {
+        return lblDestino;
+    }
+
+    public TextView getLblDetalle() {
+        return lblDetalle;
+    }
+
+    public TextView getLblMonto() {
+        return lblMonto;
+    }
+}
+
+5.- Ahora crear la clase "RecyclerViewAdapter" que herede de
+"RecyclerView.Adapter<MovimientoViewHolder>"
+
+6.- Esta clase debe tener una lista de los elementos que queremos mostrar. En mi caso
+private List<Movimiento> movimientos;
+
+7.- Sobre escribir los siguientes métodos:
+
+    // Constructor
+    public RecyclerViewAdapter(List<Movimiento> movimientos)
+
+
+
+
+    onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+            R.layout.item_movimiento,
+            parent,
+            false
+        );
+
+        MovimientoViewHolder viewHolder = new MovimientoViewHolder(view);
+
+        return viewHolder;
+    }
+
+
+
+
+    onBindViewHolder(@NonNull MovimientoViewHolder holder, int position){
+        Movimiento movimiento = movimientos.get(position);
+
+        // y despues se deben colocar los datos del objeto "movimiento" en el holder
+    }
+
+
+
+    getItemCount()
+        return movimientos.size();
+
+
+8.- En la clase del listarFragment, pegar esto: (ACA ES ListarMovimientosFragment)
+
+    private RecyclerView reciclerMovimientos;
+    private RecyclerViewAdapter recyclerViewAdapter;
+
+
+    init(){
+        reciclerMovimientos = view.findViewById(R.id.reciclerMovimientos);
+        reciclerMovimientos.setLayoutManager(new LinearLayoutManager(context));
+
+        recyclerViewAdapter = new RecyclerViewAdapter(LISTA_DE_MOVIMIENTOS);
+        reciclerMovimientos.setAdapter(recyclerViewAdapter);
+    }

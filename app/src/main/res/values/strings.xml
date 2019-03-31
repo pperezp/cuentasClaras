@@ -19,4 +19,12 @@
     <string name="lblMonto">Monto:</string>
     <string name="lblDetalle">Detalle:</string>
     <string name="lblAutoSelect">Cuenta Auto Select</string>
+
+    <string name="seguroDelete">
+        ¿Seguro que quiere eliminar TODOS los movimientos de la base de datos?
+    </string>
+
+    <string name="mensajeEliminaTodos">
+        Se han eliminado todos los movimientos
+    </string>
 </resources>
