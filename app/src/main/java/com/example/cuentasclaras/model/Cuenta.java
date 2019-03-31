@@ -3,6 +3,15 @@ package com.example.cuentasclaras.model;
 public class Cuenta {
     private int id;
     private String nombre;
+    private int imageId;
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
     public int getId() {
         return id;

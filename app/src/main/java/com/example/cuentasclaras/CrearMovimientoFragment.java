@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import com.example.cuentasclaras.model.Cuenta;
 import com.example.cuentasclaras.model.Movimiento;
 import com.example.cuentasclaras.model.database.dao.DAOMovimiento;
+import com.example.cuentasclaras.model.spinner.CuentaAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +34,9 @@ public class CrearMovimientoFragment extends Fragment {
     private EditText txtDetalle;
     private View view;
     private Context context;
+
+    // Spinner
+    private CuentaAdapter cuantaAdapter;
 
     private List<Cuenta> cuentas;
 
@@ -124,14 +127,16 @@ public class CrearMovimientoFragment extends Fragment {
     }
 
     private void cargarSpinnerCuentas() {
-        ArrayAdapter<Cuenta> cuentasAdapter = new ArrayAdapter<>(
+        /*ArrayAdapter<Cuenta> cuentasAdapter = new ArrayAdapter<>(
             context,
             android.R.layout.simple_spinner_dropdown_item   ,
             cuentas
-        );
+        );*/
 
-        cboCuentaOrigen.setAdapter(cuentasAdapter);
-        cboCuentaDestino.setAdapter(cuentasAdapter);
+        cuantaAdapter = new CuentaAdapter(getContext(), cuentas);
+
+        cboCuentaOrigen.setAdapter(cuantaAdapter);
+        cboCuentaDestino.setAdapter(cuantaAdapter);
 
         cboCuentaDestino.setEnabled(!switchAutoSelect.isChecked());
 
@@ -146,9 +151,11 @@ public class CrearMovimientoFragment extends Fragment {
 
         rut.setId(1);
         rut.setNombre("RUT");
+        rut.setImageId(R.drawable.cuenta_rut);
 
         corriente.setId(2);
         corriente.setNombre("Corriente");
+        corriente.setImageId(R.drawable.cuenta_corriente);
 
         cuentas.add(rut);
         cuentas.add(corriente);
