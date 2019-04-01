@@ -38,7 +38,9 @@ public class DAOMovimiento implements DAO<Movimiento>{
                 "'"+movimiento.getCuentaOrigen()+"'," +
                 "'"+movimiento.getCuentaDestino()+"'," +
                 "'"+movimiento.getDetalle()+"'," +
-                "datetime('now', 'localtime'));";
+                "datetime('now', 'localtime'), " +
+                "'"+movimiento.getCuentaOrigenResourceId()+"'," +
+                "'"+movimiento.getCuentaDestinoResourceId()+"');";
 
         Log.v("INSERT movimiento", insert);
 
@@ -68,6 +70,8 @@ public class DAOMovimiento implements DAO<Movimiento>{
                 movimiento.setCuentaDestino(cursor.getString(3));
                 movimiento.setDetalle(cursor.getString(4));
                 movimiento.setFecha(cursor.getString(5));
+                movimiento.setCuentaOrigenResourceId(cursor.getInt(6));
+                movimiento.setCuentaDestinoResourceId(cursor.getInt(7));
 
                 movimientos.add(movimiento);
             }while(cursor.moveToNext());

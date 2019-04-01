@@ -114,14 +114,17 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_crear) {
             CrearMovimientoFragment cmf = new CrearMovimientoFragment();
             fm.beginTransaction().replace(R.id.contenido, cmf).commit();
+            this.setTitle("Crear movimiento");
         } else if (id == R.id.nav_listar) {
             ListarMovimientosFragment lmf = new ListarMovimientosFragment();
             fm.beginTransaction().replace(R.id.contenido, lmf).commit();
+
+            this.setTitle("Movimientos");
         } else if(id == R.id.nav_delete_movimientos){
             new AlertDialog.Builder(this)
                 .setMessage(R.string.seguroDelete)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         new DAOMovimiento(MainActivity.this).deleteAll();
 

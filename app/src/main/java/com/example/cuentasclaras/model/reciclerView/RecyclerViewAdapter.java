@@ -81,6 +81,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<MovimientoViewHold
         holder.getLblDestino().setText(movimiento.getCuentaDestino());
         holder.getLblDetalle().setText(movimiento.getDetalle());
         holder.getLblMonto().setText(monto);
+        holder.getImgOrigen().setImageResource(movimiento.getCuentaOrigenResourceId());
+        holder.getImgDestino().setImageResource(movimiento.getCuentaDestinoResourceId());
     }
 
     @Override

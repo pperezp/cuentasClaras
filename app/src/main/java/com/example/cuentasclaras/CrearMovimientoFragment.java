@@ -94,10 +94,15 @@ public class CrearMovimientoFragment extends Fragment {
 
                 Movimiento movimiento = new Movimiento();
 
+                Cuenta origen = (Cuenta) cboCuentaOrigen.getSelectedItem();
+                Cuenta destino = (Cuenta) cboCuentaDestino.getSelectedItem();
+
                 movimiento.setMonto(Integer.parseInt(txtMonto.getText().toString()));
-                movimiento.setCuentaOrigen(cboCuentaOrigen.getSelectedItem().toString());
-                movimiento.setCuentaDestino(cboCuentaDestino.getSelectedItem().toString());
+                movimiento.setCuentaOrigen(origen.getNombre());
+                movimiento.setCuentaDestino(destino.getNombre());
                 movimiento.setDetalle(txtDetalle.getText().toString());
+                movimiento.setCuentaOrigenResourceId(origen.getImageId());
+                movimiento.setCuentaDestinoResourceId(destino.getImageId());
 
                 daoMovimiento.create(movimiento);
 

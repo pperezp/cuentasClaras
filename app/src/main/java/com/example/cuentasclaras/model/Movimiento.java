@@ -7,6 +7,24 @@ public class Movimiento {
     private String cuentaDestino;
     private String detalle;
     private String fecha;
+    private int cuentaOrigenResourceId;
+    private int cuentaDestinoResourceId;
+
+    public int getCuentaOrigenResourceId() {
+        return cuentaOrigenResourceId;
+    }
+
+    public void setCuentaOrigenResourceId(int cuentaOrigenResourceId) {
+        this.cuentaOrigenResourceId = cuentaOrigenResourceId;
+    }
+
+    public int getCuentaDestinoResourceId() {
+        return cuentaDestinoResourceId;
+    }
+
+    public void setCuentaDestinoResourceId(int cuentaDestinoResourceId) {
+        this.cuentaDestinoResourceId = cuentaDestinoResourceId;
+    }
 
     public int getId() {
         return id;

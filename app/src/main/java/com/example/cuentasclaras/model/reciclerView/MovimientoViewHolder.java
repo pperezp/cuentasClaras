@@ -3,6 +3,7 @@ package com.example.cuentasclaras.model.reciclerView;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cuentasclaras.R;
@@ -13,6 +14,8 @@ public class MovimientoViewHolder extends RecyclerView.ViewHolder {
     private TextView lblDestino;
     private TextView lblDetalle;
     private TextView lblMonto;
+    private ImageView imgOrigen;
+    private ImageView imgDestino;
 
     public MovimientoViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -22,6 +25,8 @@ public class MovimientoViewHolder extends RecyclerView.ViewHolder {
         lblDestino = itemView.findViewById(R.id.lblDestino);
         lblDetalle = itemView.findViewById(R.id.lblDetalle);
         lblMonto = itemView.findViewById(R.id.lblMonto);
+        imgOrigen = itemView.findViewById(R.id.imgOrigen);
+        imgDestino = itemView.findViewById(R.id.imgDestino);
     }
 
     public TextView getLblFecha() {
@@ -42,5 +47,13 @@ public class MovimientoViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getLblMonto() {
         return lblMonto;
+    }
+
+    public ImageView getImgOrigen() {
+        return imgOrigen;
+    }
+
+    public ImageView getImgDestino() {
+        return imgDestino;
     }
 }

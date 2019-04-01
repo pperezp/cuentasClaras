@@ -12,7 +12,9 @@ public class BD extends SQLiteOpenHelper {
         "cuentaOrigen TEXT,"+
         "cuentaDestino TEXT,"+
         "detalle TEXT,"+
-        "fecha TEXT" +
+        "fecha TEXT," +
+        "cuentaOrigenResourceId INTEGER," +
+        "cuentaDestinoResourceId INTEGER" +
     ")";
 
 	/*
@@ -33,6 +35,6 @@ public class BD extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /*No implementado*/
+
     }
 }
