@@ -97,27 +97,34 @@ public class CrearMovimientoFragment extends Fragment {
                 Cuenta origen = (Cuenta) cboCuentaOrigen.getSelectedItem();
                 Cuenta destino = (Cuenta) cboCuentaDestino.getSelectedItem();
 
-                movimiento.setMonto(Integer.parseInt(txtMonto.getText().toString()));
-                movimiento.setCuentaOrigen(origen.getNombre());
-                movimiento.setCuentaDestino(destino.getNombre());
-                movimiento.setDetalle(txtDetalle.getText().toString());
-                movimiento.setCuentaOrigenResourceId(origen.getImageId());
-                movimiento.setCuentaDestinoResourceId(destino.getImageId());
+                int monto = -1;
 
-                daoMovimiento.create(movimiento);
-
-                /*Limpiar formulario*/
-                txtMonto.setText("");
-                cboCuentaOrigen.setSelection(0);
-                cboCuentaDestino.setSelection(1);
-                txtDetalle.setText("");
-                /*Limpiar formulario*/
-
-                Toast.makeText(context, R.string.creacionMovimientoOK, Toast.LENGTH_SHORT).show();
-
-                for (Movimiento m : daoMovimiento.read()){
-                    Log.i("movimiento", m.toString());
+                try{
+                    monto = Integer.parseInt(txtMonto.getText().toString());
+                }catch(Exception ex){
+                    Toast.makeText(getContext(), "Ingrese un monto correcto", Toast.LENGTH_SHORT).show();
                 }
+
+                if(monto != -1){
+                    movimiento.setMonto(monto);
+                    movimiento.setCuentaOrigen(origen.getNombre());
+                    movimiento.setCuentaDestino(destino.getNombre());
+                    movimiento.setDetalle(txtDetalle.getText().toString());
+                    movimiento.setCuentaOrigenResourceId(origen.getImageId());
+                    movimiento.setCuentaDestinoResourceId(destino.getImageId());
+
+                    daoMovimiento.create(movimiento);
+
+                    /*Limpiar formulario*/
+                    txtMonto.setText("");
+                    cboCuentaOrigen.setSelection(0);
+                    cboCuentaDestino.setSelection(1);
+                    txtDetalle.setText("");
+                    /*Limpiar formulario*/
+
+                    Toast.makeText(context, R.string.creacionMovimientoOK, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
